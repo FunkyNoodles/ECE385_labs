@@ -11,7 +11,7 @@
  *  See section called module instatiation below.
  
 
-/* Module declaration.  Everything within the parentheses()
+ * Module declaration.  Everything within the parentheses()
  * is a port between this module and the outside world */
  
 module lab4_adders_toplevel
@@ -120,7 +120,7 @@ module lab4_adders_toplevel
 //        .Sum(Sum_comb), // Connects the Sum_comb wire in this file to the Sum wire in ripple_adder.sv
 //        .CO(CO_comb)
 //    );
-
+//
 //    carry_select_adder carry_select_adder_inst
 //    (
 //        .A,             // This is shorthand for .A(A) when both wires/registers have the same name
@@ -128,7 +128,7 @@ module lab4_adders_toplevel
 //        .Sum(Sum_comb), // Connects the Sum_comb wire in this file to the Sum wire in ripple_adder.sv
 //        .CO(CO_comb)
 //    );
-    
+//    
     HexDriver Ahex0_inst
     (
         .In0(A[3:0]),   // This connects the 4 least significant bits of 
