@@ -1,4 +1,5 @@
 module reg_8_A(input  logic Clk, Reset, Shift_In, Load, clear, Shift_En,
+				  input logic clear_a,
               input  logic [7:0]  D,
               output logic Shift_Out,
               output logic [7:0]  Data_Out);
@@ -8,6 +9,8 @@ module reg_8_A(input  logic Clk, Reset, Shift_In, Load, clear, Shift_En,
 	 	 if (Reset) //notice, this is a sycnrhonous reset, which is recommended on the FPGA
 			  Data_Out <= 8'h0;
 		 else if (clear)
+			  Data_Out <= 8'h0;
+		 else if (clear_a)
 			  Data_Out <= 8'h0;
 		 else if (Load)
 			  Data_Out <= D;

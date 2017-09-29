@@ -23,7 +23,7 @@ module Multiplier_toplevel (input logic   Clk,     // Internal
 	 logic Reset_SH, ClearA_LoadB_SH, Run_SH;
 	 logic Ld_A, Ld_B, Add, Sub, Shift_En;
 	 logic [7:0] A_in;
-	 logic M, MA, x_in, x_out;
+	 logic M, MA, x_in, x_out, ca;
 	 
 	 assign Ld_A = Add | Sub;
 	 assign Ld_B = ~ClearA_LoadB;
@@ -35,6 +35,8 @@ module Multiplier_toplevel (input logic   Clk,     // Internal
 		else 
 			x_in = X;
 	 end
+	 
+	 
 	
 	 //Instantiation of modules here
 	 xab_reg_unit    reg_unit (
@@ -44,6 +46,7 @@ module Multiplier_toplevel (input logic   Clk,     // Internal
                         .Ld_B(Ld_B),
                         .Shift_En,
 								.x_bit(x_in),
+								.clear_a_x(ca),
 								.DA(A_in[7:0]),
                         .DB(S[7:0]),
 								.M(M),
@@ -67,7 +70,8 @@ module Multiplier_toplevel (input logic   Clk,     // Internal
 								.MA(MA),
                         .Shift_En,
                         .Add,
-                        .Sub);
+                        .Sub,
+								.clear_a_x(ca));
 	 HexDriver        HexAL (
                         .In0(A[3:0]),
                         .Out0(AhexL) );

@@ -1,6 +1,6 @@
 //synchronizer with reset to 0 (d_ff)
 module sync_r0 (
-	input  logic Clk, Reset, d, 
+	input  logic Clk, Reset, d, clear_x,
 	output logic q
 );
  
@@ -9,9 +9,11 @@ module sync_r0 (
 //	q <= 1'b0;
 //end
 
-always_ff @ (posedge Clk or posedge Reset)
+always_ff @ (posedge Clk or posedge Reset or posedge clear_x)
 begin
 	if (Reset)
+		q <= 1'b0;
+	else if (clear_x)
 		q <= 1'b0;
 	else
 		q <= d;

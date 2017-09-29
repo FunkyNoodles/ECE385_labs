@@ -1,5 +1,5 @@
 module xab_reg_unit (input  logic Clk, Reset, Ld_A, Ld_B, 
-                            Shift_En, x_bit,
+                            Shift_En, x_bit, clear_a_x,
 							 input  logic [7:0]  DA, 
                       input  logic [7:0]  DB, 
                       output logic M, MA,
@@ -9,9 +9,9 @@ module xab_reg_unit (input  logic Clk, Reset, Ld_A, Ld_B,
 							 
 	logic A_out;
 
-	sync_r0 reg_X (.Clk(Clk), .Reset(Reset), .d(x_bit), .q(X_out));
+	sync_r0 reg_X (.Clk(Clk), .Reset(Reset), .clear_x(clear_a_x), .d(x_bit), .q(X_out));
 							 
-	reg_8_A   reg_A (.Clk(Clk), .Reset(Reset), .Shift_En(Shift_En), .D(DA), .Shift_In(X_out), .Load(Ld_A), .clear(Ld_B), .Shift_Out(A_out), .Data_Out(A));
+	reg_8_A   reg_A (.Clk(Clk), .Reset(Reset), .Shift_En(Shift_En), .clear_a(clear_a_x), .D(DA), .Shift_In(X_out), .Load(Ld_A), .clear(Ld_B), .Shift_Out(A_out), .Data_Out(A));
 	reg_8_B   reg_B (.Clk(Clk), .Reset(Reset), .Shift_En(Shift_En), .D(DB), .Shift_In(A_out), .Load(Ld_B), .Shift_Out(M), .m_ahead(MA), .Data_Out(B));
 
 endmodule

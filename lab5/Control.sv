@@ -1,12 +1,12 @@
 //Two-always example for state machine
 
 module control (input  logic Clk, Reset, ClearA_LoadB, Run, M, MA,
-                output logic Shift_En, Add, Sub );
+                output logic Shift_En, Add, Sub, clear_a_x );
 
     // Declare signals curr_state, next_state of type enum
     // with enum values of A, B, ..., F as the state values
 	 // Note that the length implies a max of 8 states, so you will need to bump this up for 8-bits
-    enum logic [5:0] {A, BA, BS, CA, CS, DA, DS, EA, ES, FA, FS, GA, GS, HA, HS, IA, ISub, IShift, J}   curr_state, next_state; 
+    enum logic [5:0] {A, clear_it, BA, BS, CA, CS, DA, DS, EA, ES, FA, FS, GA, GS, HA, HS, IA, ISub, IShift, J}   curr_state, next_state; 
 
 	//updates flip flop, current state is the only one
     always_ff @ (posedge Clk)  
@@ -24,8 +24,9 @@ module control (input  logic Clk, Reset, ClearA_LoadB, Run, M, MA,
 		next_state  = curr_state;	//required because I haven't enumerated all possibilities below
       unique case (curr_state) 
 
-		A :    if (Run)
-			if (M)
+		A : if (Run)
+			next_state = clear_it;
+		clear_it : if (M)
 				next_state = BA;
 			else
 				next_state = BS;
@@ -78,6 +79,7 @@ module control (input  logic Clk, Reset, ClearA_LoadB, Run, M, MA,
 					Shift_En = 1'b0;
 					Add = 1'b0;
 					Sub = 1'b0;
+					clear_a_x = 1'b0;
 		      end
 				
 				BA, CA, DA, EA, FA, GA, HA:
@@ -85,6 +87,7 @@ module control (input  logic Clk, Reset, ClearA_LoadB, Run, M, MA,
 					Shift_En = 1'b0;
 					Add = 1'b1;
 					Sub = 1'b0;
+					clear_a_x = 1'b0;
 				end
 				
 				ISub:
@@ -92,6 +95,7 @@ module control (input  logic Clk, Reset, ClearA_LoadB, Run, M, MA,
 					Shift_En = 1'b0;
 					Add = 1'b0;
 					Sub = 1'b1;
+					clear_a_x = 1'b0;
 				end
 				
 	   	   J: 
@@ -99,13 +103,23 @@ module control (input  logic Clk, Reset, ClearA_LoadB, Run, M, MA,
 					Shift_En = 1'b0;
 					Add = 1'b0;
 					Sub = 1'b0;
+					clear_a_x = 1'b0;
 		      end
+				
+				clear_it:
+				begin 
+					Shift_En = 1'b0;
+					Add = 1'b0;
+					Sub = 1'b0;
+					clear_a_x = 1'b1;
+				end 
 				
 	   	   default:  //default case, can also have default assignments for Ld_A and Ld_B before case
 		      begin 
 					Shift_En = 1'b1;
 					Add = 1'b0;
 					Sub = 1'b0;
+					clear_a_x = 1'b0;
 		      end
         endcase
     end
