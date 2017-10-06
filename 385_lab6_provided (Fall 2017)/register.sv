@@ -12,10 +12,8 @@
 //
 //------------------------------------------------------------------------------
 
-// Took out Reset signal - might need it again later
-
 module register(
-	input Clk, Load,
+	input Clk, Load, Reset,
 	input [15:0] in,
 	output logic [15:0] out
 );
@@ -29,11 +27,13 @@ module register(
 
 
 	always_ff @ (posedge Clk)
-		begin
+	begin
 			if(Load)
 				data <= in;
-		end
-		
+			else if(Reset)
+				data <= 4'h0000;
+	end
+
 	always_comb
 	begin
 		out = data;

@@ -20,14 +20,23 @@ module bus(
 
 always_comb
 	begin
+/*
+		Why does this not work?!
+		if(GatePC)
+			out = PC_data;
+		else if(GateMDR)
+			out = MDR_data;
+*/
+
 		case ({GatePC, GateMDR})
-			GatePC:
+			GatePC == 1:
 				out = PC_data;
-			GateMDR:
+			GateMDR == 1:
 				out = MDR_data;
 			default:
 				out = 4'h0000;
 		endcase
+
 	end
 
 endmodule

@@ -36,6 +36,7 @@ module datapath(
 	);
 	
 	register pc_register (
+		.*,
 		.Clk(Clk),
 		.Load(LD_PC),
 		.in(PC + 4'h0001),
@@ -43,6 +44,7 @@ module datapath(
 	);
 	
 	register mar_register (
+		.*,
 		.Clk(Clk),
 		.Load(LD_MAR),
 		.in(bus_out),
@@ -50,6 +52,7 @@ module datapath(
 	);
 
 	register mdr_register (
+		.*,
 		.Clk(Clk),
 		.Load(LD_MDR),
 		.in(mdr_mux_out),
@@ -57,6 +60,7 @@ module datapath(
 	);
 
 	register ir_register (
+		.*,
 		.Clk(Clk),
 		.Load(LD_IR),
 		.in(bus_out),
