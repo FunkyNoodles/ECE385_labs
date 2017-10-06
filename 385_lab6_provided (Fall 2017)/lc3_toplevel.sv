@@ -14,4 +14,4 @@ module lc3_toplevel (
 	test_memory memory( .*, .A(ADDR), .I_O(Data));
 	
 
-endmodule 
+endmodule

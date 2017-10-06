@@ -34,6 +34,10 @@ module slc3(
 // Declaration of push button active high signals
 logic Reset_SH, Continue_SH, Run_SH;
 
+assign Reset_SH = ~Reset;
+assign Continue_SH = ~Continue;
+assign Run_SH = ~Run;
+
 // Internal connections
 logic BEN;
 logic LD_MAR, LD_MDR, LD_IR, LD_BEN, LD_CC, LD_REG, LD_PC, LD_LED;
@@ -45,8 +49,6 @@ logic MIO_EN;
 logic [15:0] MDR_In;
 logic [15:0] MAR, MDR, IR, PC;
 logic [15:0] Data_from_SRAM, Data_to_SRAM;
-
-logic [15:0] pc_out, mar_out, mdr_out, ir_out;
 
 // Signals being displayed on hex display
 logic [3:0][3:0] hex_4;
@@ -78,16 +80,12 @@ assign MIO_EN = ~OE;
 // You need to make your own datapath module and connect everything to the datapath
 // Be careful about whether Reset is active high or low
 datapath d0 (
-	.Clk(Clk), .Reset(Reset_SH), .Run(Run_SH), .Continue(Continue_SH),
-	.GateMARMUX(GateMARMUX), .GatePC(GatePC), .GateALU(GateALU), .GateMDR(GateMDR),
-	.LD_MAR(LD_MAR), .LD_MDR(LD_MDR), .LD_IR(LD_IR), .LD_BEN(LD_BEN), .LD_CC(LD_CC), .LD_REG(LD_REG), .LD_PC(LD_PC), .LD_LED(LD_LED),
-	.MAR(MAR), .MDR(MDR_In), .IR(IR), .PC(PC),
-	.mdr_out(mdr_out), .mar_out(mar_out), .ir_out(ir_out), .pc_out(pc_out)
+	.*, .Reset(Reset_SH), .Run(Run_SH), .Continue(Continue_SH)
 );
 
 // Our SRAM and I/O controller
 Mem2IO memory_subsystem(
-    .*, .Reset(Reset_ah), .ADDR(ADDR), .Switches(S),
+    .*, .Reset(Reset_SH), .ADDR(ADDR), .Switches(S),
     .HEX0(hex_4[0][3:0]), .HEX1(hex_4[1][3:0]), .HEX2(hex_4[2][3:0]), .HEX3(hex_4[3][3:0]),
     .Data_from_CPU(MDR), .Data_to_CPU(MDR_In),
     .Data_from_SRAM(Data_from_SRAM), .Data_to_SRAM(Data_to_SRAM)
@@ -100,12 +98,12 @@ tristate #(.N(16)) tr0(
 
 // State machine and control signals
 ISDU state_controller(
-    .*, .Reset(Reset_ah), .Run(Run_ah), .Continue(Continue_ah),
+    .*, .Reset(Reset_SH), .Run(Run_SH), .Continue(Continue_SH),
     .Opcode(IR[15:12]), .IR_5(IR[5]), .IR_11(IR[11]),
     .Mem_CE(CE), .Mem_UB(UB), .Mem_LB(LB), .Mem_OE(OE), .Mem_WE(WE)
 );
 
-sync button_sync[2:0] (Clk, {~Reset, ~Run, ~Continue}, {Reset_SH, Run_SH, Continue_SH});
+// sync button_sync[2:0] (Clk, {~Reset, ~Run, ~Continue}, {Reset_SH, Run_SH, Continue_SH});
 
 
 endmodule

@@ -14,36 +14,53 @@
 
 module datapath(
 	input logic Clk, Reset, Run, Continue,
-	input logic GateMARMUX, GatePC, GateALU, GateMDR,
-	input logic LD_MAR, LD_MDR, LD_IR, LD_BEN, LD_CC, LD_REG, LD_PC, LD_LED,
-	input logic [15:0] MAR, MDR, IR, PC,
-	output logic [15:0] mar_out, ir_out, pc_out, mdr_out
-	
+	input logic GateMARMUX, GatePC, GateMDR,
+	input logic LD_MAR, LD_MDR, LD_IR, LD_PC, MIO_EN,
+	input [15:0] MDR_In,
+	output logic [15:0] MAR, MDR, IR, PC
 );
 	
-	logic [15:0] ALU_output_data, bus_out;
-	logic [15:0] internal_adder_data;
+	logic [15:0] bus_out, mdr_mux_out;
+	
+	MUX_2 MDR_MUX(
+		.SELECT(MIO_EN),
+		.in1(bus_out),
+		.in2(MDR_In),
+		.out(mdr_mux_out)
+	);
 
-		register pc_register (
-			.Clk(Clk),
-			.Load(LD_PC),
-			.in(PC),
-			.out(pc_out)
-		);
-		
-		assign mar_out = pc_out;
-		assign ir_out = MAR;
+	bus bus_line(
+		.PC_data(PC), .MDR_data(MDR),
+		.GatePC(GatePC), .GateMDR(GateMDR),
+		.out(bus_out)
+	);
+	
+	register pc_register (
+		.Clk(Clk),
+		.Load(LD_PC),
+		.in(PC + 4'h0001),
+		.out(PC)
+	);
+	
+	register mar_register (
+		.Clk(Clk),
+		.Load(LD_MAR),
+		.in(bus_out),
+		.out(MAR)
+	);
 
-		bus bus(
-			.PC_data(pc_out), .MDR_data(MDR), .ALU_data(ALU_output_data), .ADDER_data(internal_adder_data),
-			.GatePC(GatePC), .GateMDR(GateMDR), .GateALU(GateALU), .GateMARMUX(GateMARMUX),
-			.out(bus_out)
-		);
-		
-		pc_increment pc_increment(
-			.in(pc_out),
-			.out(pc_out)
-		);
-		
+	register mdr_register (
+		.Clk(Clk),
+		.Load(LD_MDR),
+		.in(mdr_mux_out),
+		.out(MDR)
+	);
+
+	register ir_register (
+		.Clk(Clk),
+		.Load(LD_IR),
+		.in(bus_out),
+		.out(IR)
+	);
 
 endmodule

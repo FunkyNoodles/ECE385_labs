@@ -11,7 +11,7 @@ logic [11:0] LED;
 logic [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7;
 logic CE, UB, LB, OE, WE;
 logic [19:0] ADDR;
-inout wire [15:0] Data; //tristate buffers need to be of type wire
+wire [15:0] Data; //tristate buffers need to be of type wire
 
 
 // To store expected results
@@ -42,9 +42,9 @@ end
 initial begin: TEST_VECTORS
 Reset = 0;		// Toggle Rest
 Run = 1;
-S = 8'b11000101;	// Specify Din, F, and R
 
 #2 Reset = 1;
+//S = 8'b11000101;	// Specify Din, F, and R
 
 #2 Run = 0;	// Toggle Execute
 end

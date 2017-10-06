@@ -13,21 +13,21 @@
 //------------------------------------------------------------------------------
 
 module bus(
-	input logic [15:0] PC_data, MDR_data, ALU_data, ADDER_data,
-	input logic GatePC, GateMDR, GateALU, GateMARMUX,
+	input logic [15:0] PC_data, MDR_data,
+	input logic GatePC, GateMDR,
 	output logic [15:0] out
 );
 
-always_ff @ (GatePC or GateMDR or GateALU or GateMARMUX)
+always_comb
 	begin
-		if(GatePC)
-			out <= PC_data;
-		else if(GateMDR)
-			out <= MDR_data;
-		else if(GateALU)
-			out <= ALU_data;
-		else if(GateMARMUX)
-			out <= ADDER_data;
+		case ({GatePC, GateMDR})
+			GatePC:
+				out = PC_data;
+			GateMDR:
+				out = MDR_data;
+			default:
+				out = 4'h0000;
+		endcase
 	end
 
 endmodule
