@@ -67,8 +67,8 @@ mem_array[   0 ] <=    opCLR(R0)                ;       // Clear the register so
 //mem_array[   2 ] <=    opJMP(R1)                ;       // Jump to the start of a program
 //
 //                                                        // Basic I/O test 1
-mem_array[   1 ] <=    opLDR(R1, R0, inSW)      ;  
-mem_array[   2 ] <=  opDEC(R1)     ;// Load switches
+mem_array[   1 ] <=    opLDR(R1, R0, 6'b000001)      ;  
+//mem_array[   2 ] <=  opDEC(R1)     ;// Load switches
 //mem_array[   4 ] <=    opSTR(R1, R0, outHEX)    ;       // Output
 //mem_array[   5 ] <=    opBR(nzp, -3)            ;       // Repeat
 //                                    
@@ -77,7 +77,7 @@ mem_array[   2 ] <=  opDEC(R1)     ;// Load switches
 //mem_array[   2 ] <=    opNOT(R1, R1)      ;       // Load switches
 //mem_array[   2 ] <=    opSTR(R1, R0, 6'b000101)    ; 
 //mem_array[   3 ] <=    opLDR(R2, R0, 6'b000101)      ;      // Output
-mem_array[   3 ] <=    opPSE(12'hC02)           ;  // Checkpoint 2 - read output, prepare to input
+mem_array[   2 ] <=    opPSE(12'hC02)           ;  // Checkpoint 2 - read output, prepare to input
 //mem_array[  10 ] <=    opBR(nzp, -4)            ;       // Repeat
 //                                        
 //                                                        // Basic I/O test 3 (Self-modifying code)
@@ -232,7 +232,7 @@ mem_array[   3 ] <=    opPSE(12'hC02)           ;  // Checkpoint 2 - read output
 //mem_array[ 155 ] <=    opPSE(12'h802)           ;       //    instruction as data
 
 			
-			for (integer i = 4; i <= size - 1; i = i + 1)		// Assign the rest of the memory to 0
+			for (integer i = 3; i <= size - 1; i = i + 1)		// Assign the rest of the memory to 0
 			begin
 				mem_array[i] <= 16'h0;
 			end

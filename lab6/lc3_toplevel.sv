@@ -11,7 +11,7 @@ module lc3_toplevel (
 
 	slc3 slc3_new( .*);
 
-	//test_memory memory( .*, .A(ADDR), .I_O(Data));
+	test_own_memory memory( .*, .A(ADDR), .I_O(Data));
 	
 
 endmodule

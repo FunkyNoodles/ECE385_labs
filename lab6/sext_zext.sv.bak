@@ -1,0 +1,22 @@
+//------------------------------------------------------------------------------
+// Company: 		 UIUC ECE Dept.
+// Engineer:		 David Null
+//
+// Create Date:    
+// Design Name:    ECE 385 Lab 6 Generated Code - The ZEXT module 
+// Module Name:    register
+//
+// Comments:
+//    Revised 02-13-2017
+//    Spring 2017 Distribution
+//
+//------------------------------------------------------------------------------
+
+module ZEXT(
+	input [7:0] in,
+	output [16:0] out
+);
+
+
+
+endmodule

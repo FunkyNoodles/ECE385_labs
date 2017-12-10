@@ -47,20 +47,20 @@ Continue = 1;
 #4 Reset = 1;	// Specify Din, F, and R
 
 #2 Run = 0;	// Toggle Execute
-S = 16'h005A;
-#75 Continue = 0;
-
-#5 Continue =1;
-
-#10 S = 16'h0003;
-#100 Continue =0;
-#4 Continue = 1;
-
-#500 Continue =0;
-#4 Continue = 1;
-
-#500 Continue =0;
-#4 Continue = 1;
+S = 16'h0003;
+//#75 Continue = 0;
+//
+//#5 Continue =1;
+//
+//#10 S = 16'h0003;
+//#100 Continue =0;
+//#4 Continue = 1;
+//
+//#500 Continue =0;
+//#4 Continue = 1;
+//
+//#500 Continue =0;
+//#4 Continue = 1;
 
 
 end

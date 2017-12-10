@@ -55,42 +55,29 @@ S = 8'b11000101;	// Specify Din, F, and R
 	S = 8'b00000111;
 
 #2 Run = 0;	// Toggle Execute
+
+#30 Run = 1;
+#2 ClearA_LoadB = 0;	// Toggle LoadA
+#2 ClearA_LoadB = 1;
+	S = 8'b11000101;
+	
+#2 Run = 0;
+
+#30 Run = 1;
+#2 ClearA_LoadB = 0;	// Toggle LoadA
+#2 ClearA_LoadB = 1;
+	S = 8'b11111001;
+	
+#2 Run = 0;
+
+#30 Run = 1;
+	S = 8'b00000111;
+#2 ClearA_LoadB = 0;	// Toggle LoadA
+#2 ClearA_LoadB = 1;
+	S = 8'b00111011;
+	
+#2 Run = 0;
+
+
 end
-//#22 Execute = 1;
-//    ans_1a = (8'h33 ^ 8'h55); // Expected result of 1st cycle
-//    // Aval is expected to be 8’h33 XOR 8’h55
-//    // Bval is expected to be the original 8’h55
-//    if (Aval != ans_1a)
-//	 ErrorCnt++;
-//    if (Bval != 8'h55)
-//	 ErrorCnt++;
-//    F = 3'b110;	// Change F and R
-//    R = 2'b01;
-//
-//#2 Execute = 0;	// Toggle Execute
-//#2 Execute = 1;
-//
-//#22 Execute = 0;
-//    // Aval is expected to stay the same
-//    // Bval is expected to be the answer of 1st cycle XNOR 8’h55
-//    if (Aval != ans_1a)	
-//	 ErrorCnt++;
-//    ans_2b = ~(ans_1a ^ 8'h55); // Expected result of 2nd  cycle
-//    if (Bval != ans_2b)
-//	 ErrorCnt++;
-//    R = 2'b11;
-//#2 Execute = 1;
-//
-//// Aval and Bval are expected to swap
-//#22 if (Aval != ans_2b)
-//	 ErrorCnt++;
-//    if (Bval != ans_1a)
-//	 ErrorCnt++;
-//
-//
-//if (ErrorCnt == 0)
-//	$display("Success!");  // Command line output in ModelSim
-//else
-//	$display("%d error(s) detected. Try again!", ErrorCnt);
-//end
 endmodule
