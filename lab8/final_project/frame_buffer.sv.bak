@@ -1,0 +1,15 @@
+module frame_buffer(
+	input logic Reset, Clk,
+	input        [9:0] DrawX, DrawY,       // Current pixel coordinates
+   output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
+);
+
+	logic [799:0] buffer[525];
+	logic r_reg, g_reg, b_reg;
+	assign VGA_R = r_reg;
+	assign VGA_G = g_reg;
+	assign VGA_B = b_reg;
+	
+	
+
+endmodule

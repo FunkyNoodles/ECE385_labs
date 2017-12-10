@@ -1,0 +1,4 @@
+module game_state_machine(
+	input logic Reset, Clk,
+	output logic player
+);

@@ -1,0 +1,41 @@
+!SESSION 2017-10-25 21:33:19.409 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -pluginCustomization C:/altera/15.0/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product -pluginCustomization C:/altera/15.0/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-10-25 21:34:48.019
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.cdt.core 1 0 2017-10-25 21:38:20.675
+!MESSAGE Indexed 'usb_kb' (3 sources, 5 headers) in 0.95 sec: 68 declarations; 1,121 references; 18 unresolved inclusions; 0 syntax errors; 38 unresolved names (3.10%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2017-10-25 21:39:24.269
+!MESSAGE Indexed 'usb_kb_bsp' (79 sources, 153 headers) in 2.03 sec: 4,925 declarations; 7,264 references; 21 unresolved inclusions; 5 syntax errors; 73 unresolved names (0.60%)
+
+!ENTRY com.altera.sbtgui.core 4 0 2017-10-25 21:39:48.144
+!MESSAGE Error executing 'nios2-bsp-generate-files --bsp-dir . --settings settings.bsp', unexpected return code 1.
+
+Error message:
+
+SEVERE: File not found: ..\..\nios_system.sopcinfo
+SEVERE: File not found: ..\..\nios_system.sopcinfo
+SEVERE: nios2-bsp-generate-files failed.
+
+
+!ENTRY com.altera.sbtgui.core 4 0 2017-10-25 21:51:39.415
+!MESSAGE Error executing 'nios2-bsp-generate-files --bsp-dir . --settings settings.bsp', unexpected return code 1.
+
+Error message:
+
+SEVERE: File not found: ..\..\nios_system.sopcinfo
+SEVERE: File not found: ..\..\nios_system.sopcinfo
+SEVERE: nios2-bsp-generate-files failed.
+
